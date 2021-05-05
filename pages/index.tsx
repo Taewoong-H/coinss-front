@@ -1,11 +1,11 @@
-// import { NextPage } from 'next';
-import React from 'react';
+import React from 'react'
+import Main from './main/index'
 
 
-const Home = ({}) => (
-  <div>
-    내용
-  </div>
-);
-
-export default Home;
+export default function Home() {
+  return (
+    <>
+      <Main />
+    </>
+  )
+}

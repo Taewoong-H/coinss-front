@@ -1,14 +1,15 @@
 // import App from "next/app";
 import type { AppProps /*, AppContext */ } from 'next/app'
-import { Header } from '../components/layout/HeaderLayout'
+import { Header } from '../layout/HeaderLayout'
+
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <>
       <Header />
       <Component {...pageProps} />
-    </div>
+    </>
     
   )
 }
