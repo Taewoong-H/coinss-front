@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image'
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useScroll } from '../../components/common/ScrollEvent'
+import { useScroll } from '../common/ScrollEvent'
 
 export function MainGreeting({}: any) {
   const { scrollY } = useScroll();

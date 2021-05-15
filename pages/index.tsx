@@ -1,11 +1,27 @@
 import React from 'react'
 import Main from './main/index'
+import { GetStaticProps } from 'next'
 
+import { getMarkets, MarketType } from '../api';
 
-export default function Home() {
+interface HomeProps {
+  markets: MarketType[];
+}
+
+export default function Home({ markets }:HomeProps) {
   return (
     <>
-      <Main />
+      <Main markets={markets}/>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { markets } = await getMarkets();
+
+  return {
+    props: {
+      markets
+    }
+  };
 }

@@ -1,6 +1,6 @@
 // import App from "next/app";
 import type { AppProps /*, AppContext */ } from 'next/app'
-import { Header } from '../layout/HeaderLayout'
+import { Header } from '../components/HeaderLayout'
 
 import '../styles/globals.css'
 

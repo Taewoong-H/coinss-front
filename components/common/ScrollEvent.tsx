@@ -12,8 +12,8 @@ export function useScroll() {
 
   useEffect(() => {
     window.addEventListener('scroll', debounce(listener, delay));
-    return () => window.removeEventListener('scroll', listener);
-  });
+    return () => window.removeEventListener('scroll', debounce(listener, delay));
+  }, []);
 
   return {
     scrollY
