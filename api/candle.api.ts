@@ -19,7 +19,7 @@ export interface CandleMinuteType {
 export async function getCandleMinute(market: string) {
   const request = await fetch(`${API_URL}/minutes/1?market=${market}&count=1`);
   const response = await request.json();
-  const [candleMinute] = response;
+  const candleMinute = response;
 
   return {
     candleMinute

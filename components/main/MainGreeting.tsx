@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image'
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useScroll } from '../common/ScrollEvent'
@@ -17,7 +16,7 @@ export function MainGreeting({}: any) {
       <Link href="#best-search-section">
         <GreetingButton animate={scrollY}>Explore</GreetingButton>
       </Link>
-      <Image src="/image/mountains_front.png" alt="mountains_front" id="mountains_front" layout="fill" objectFit="cover"/>
+      <MountainsFront src="/image/mountains_front.png"></MountainsFront>
     </GreetingSection>
   )
 }
@@ -47,7 +46,7 @@ const GreetingSection = styled.section`
   }
 
   #mountains_front {
-    z-index: 10;
+    
   }
 `
 
@@ -103,4 +102,14 @@ const GreetingButton = styled.a<{animate: number}>`
   z-index: 9;
   transform: translateY(100px);
   cursor: pointer;
+`
+
+const MountainsFront = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 10;
 `

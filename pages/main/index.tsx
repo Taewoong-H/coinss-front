@@ -24,6 +24,12 @@ export default function Main({ markets }:MainProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const { markets } = await getMarkets();
 
+  if (!markets) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       markets

@@ -12,7 +12,16 @@ export function MarketInfo({ candleMinute }:CandleProps) {
     <Container>
       <Header>
         <Title>{candleMinute.market}</Title>
+        <Content>{candleMinute.candle_date_time_utc}</Content>
+        <Content>{candleMinute.candle_date_time_kst}</Content>
         <Content>{candleMinute.opening_price}</Content>
+        <Content>{candleMinute.high_price}</Content>
+        <Content>{candleMinute.low_price}</Content>
+        <Content>{candleMinute.trade_price}</Content>
+        <Content>{candleMinute.timestamp}</Content>
+        <Content>{candleMinute.candle_acc_trade_price}</Content>
+        <Content>{candleMinute.candle_acc_trade_volume}</Content>
+        <Content>{candleMinute.unit}</Content>
       </Header>
     </Container>
   );
