@@ -20,7 +20,7 @@ export default function MarketPage({ candleMinute }:CandleProps) {
 
   return (
     <Container>
-      <Title>{`${candleMinute[0].market} 종목`}</Title>
+      <Title>{candleMinute[0].market} 종목</Title>
       <Link href="/">
         <BackToHome>홈으로 돌아가기</BackToHome>
       </Link>
