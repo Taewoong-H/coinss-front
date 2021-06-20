@@ -9,6 +9,7 @@ import Footer from '../components/footer/Footer';
 
 const Container = styled.div`
   display: flex;
+  width: 1280px;
 `;
 
 const PageWrapper = styled.div``;

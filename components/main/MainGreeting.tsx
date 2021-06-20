@@ -28,9 +28,9 @@ const GreetingSection = styled.section`
 
 const GreetingBox = styled.div`
   position: relative;
-  width: 1200px;
+  width: 100%;
   height: 400px;
-  margin: 24px 40px 72px;
+  margin: 24px 0 72px;
   padding: 0 0 0 100px;
   border-radius: 20px;
   background-color: #f1f5fd;
