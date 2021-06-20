@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export function MainFavorites({}: any) {
+export function MainFavorites({ favorite }: any) {
   return (
     <FavoriteSection>
       <FavoriteTitle>
@@ -9,9 +9,15 @@ export function MainFavorites({}: any) {
         <p>see all</p>
       </FavoriteTitle>
       <FavoriteTable>
-        <FavoriteList>bitcoin</FavoriteList>
-        <FavoriteList>bitcoin</FavoriteList>
-        <FavoriteList>bitcoin</FavoriteList>
+        {favorite.list.map(item => {
+          return (
+            <FavoriteList>
+              <p>{item.name}</p>
+              <p>{item.price}</p>
+              <p>{item.rate}</p>
+            </FavoriteList>
+          )
+        })}
       </FavoriteTable>
     </FavoriteSection>
   )
@@ -19,13 +25,18 @@ export function MainFavorites({}: any) {
 
 const FavoriteSection = styled.section`
   position: relative;
-  width: 670px;
-  padding: 10px;
+  width: 100%;
+  margin: 0 40px;
 `
 
 const FavoriteTitle = styled.header`
   display: flex;
   justify-content: space-between;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  color: #050f19;
 `
 
 const FavoriteTable = styled.div`
@@ -44,8 +55,12 @@ const FavoriteList = styled.div`
   flex-grow: 0;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 49px;
   padding: 0 24px 0 0;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
 `
