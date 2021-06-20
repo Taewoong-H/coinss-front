@@ -1,22 +1,39 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import Navbar from '../../components/navbar/Navbar';
-import Footer from '../../components/footer/Footer';
-import Sidebar from '../../components/sidebar/Sidebar';
+import { MainMarket } from '../../components/main/MainMarket';
+import { GetStaticProps } from 'next';
+import { getMarkets, MarketType } from '../../api';
 
-function category() {
+interface MainProps {
+  markets: MarketType[];
+}
+function category({ markets }: MainProps) {
   return (
-    <Fragment>
-      <Container></Container>
-    </Fragment>
+    <Container>
+      <MainMarket markets={markets} />
+    </Container>
   );
 }
 
 export default category;
 
 const Container = styled.div`
-  width: 1280px;
-  min-height: 1650px;
+  max-width: 1280px;
+  padding: 40px 40px;
 `;
 
-// const CategoryWrapper = styled.div``;
+export const getStaticProps: GetStaticProps = async () => {
+  const { markets } = await getMarkets();
+
+  if (!markets) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      markets,
+    },
+  };
+};

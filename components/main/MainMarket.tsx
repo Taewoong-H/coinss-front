@@ -12,7 +12,7 @@ interface MainMarketProps {
 export function MainMarket({ markets }: MainMarketProps) {
   return (
     <div>
-      {markets.map(market => {
+      {markets.map((market) => {
         return (
           <MarketWrapper key={market.market}>
             <MarketItem market={market} />
@@ -20,7 +20,7 @@ export function MainMarket({ markets }: MainMarketProps) {
         );
       })}
     </div>
-  )
+  );
 }
 
 const MarketWrapper = styled.div`
@@ -29,7 +29,6 @@ const MarketWrapper = styled.div`
     margin-bottom: 0;
   }
 `;
-
 
 // 거래가능 마켓 item
 interface MarketItemProps {
@@ -45,7 +44,7 @@ export function MarketItem({ market }: MarketItemProps) {
       </Container>
     </Link>
   );
-};
+}
 
 const Container = styled.div`
   width: 100%;
