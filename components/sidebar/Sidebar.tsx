@@ -9,11 +9,11 @@ function Sidebar() {
   return (
     <Container>
       <Link href='/'>
-        <Logo />
+        <Logo src='/image/13-1-1.png' alt='logo' />
       </Link>
       <Categories>
-        <Content isActive={router.pathname === '/home'}>
-          <GoTo href='/home' isActive={router.pathname === '/home'}>
+        <Content isActive={router.pathname === '/main'}>
+          <GoTo href='/main' isActive={router.pathname === '/main'}>
             HOME
           </GoTo>
         </Content>
@@ -48,11 +48,11 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-  background-image: url('/image/13-1-1.png');
   width: 77px;
   height: 104px;
   margin: 45px 0 27px 0;
-  border: white;
+  border: none;
+  outline: none;
 `;
 
 const Categories = styled.ul`

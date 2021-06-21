@@ -28,8 +28,13 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1280px;
+  /* max-width: 1280px; */
+  width: 100%;
   height: 100px;
+  @media screen and (max-width: 768px) {
+    /* 모바일에 사용될 스트일 시트를 여기에 작성합니다. */
+    justify-content: flex-start;
+  }
 `;
 
 const LeftSection = styled.section`
@@ -38,7 +43,9 @@ const LeftSection = styled.section`
   padding: 0 40px;
 `;
 
-const RightSection = styled.section``;
+const RightSection = styled.section`
+  padding: 0 40px 0 0;
+`;
 
 const ProfileImage = styled.img`
   margin: 0 10px 0 0px;
