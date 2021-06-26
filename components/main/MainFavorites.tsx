@@ -11,7 +11,7 @@ export function MainFavorites({ favorite }: any) {
       <FavoriteTable>
         {favorite.list.map(item => {
           return (
-            <FavoriteList>
+            <FavoriteList key={item.ID}>
               <p>{item.name}</p>
               <p>{item.price}</p>
               <p>{item.rate}</p>

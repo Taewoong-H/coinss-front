@@ -165,8 +165,9 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-const MainSection = styled.body`
+const MainSection = styled.div`
   width: 1280px;
+  margin-left: 10px;
 `
 
 const Section1 = styled.section`
