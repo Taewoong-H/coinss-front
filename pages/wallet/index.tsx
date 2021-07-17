@@ -41,7 +41,7 @@ export default function Wallet({}: any) {
       <WalletFavoriteSection>
         {favorite.list.map(item => {
           return (
-            <WalletFavorites favorite={item} />
+            <WalletFavorites favorite={item} key={item.ID}/>
           )
         })}
       </WalletFavoriteSection>

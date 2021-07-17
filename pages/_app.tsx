@@ -10,7 +10,8 @@ import Login from './login';
 
 const Container = styled.div`
   display: flex;
-  width: 1280px;
+  min-width: 1450px;
+  justify-content: center;
 `;
 
 const PageWrapper = styled.div``;

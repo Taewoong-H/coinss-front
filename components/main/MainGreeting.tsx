@@ -8,7 +8,7 @@ export function MainGreeting({}: any) {
     <GreetingSection>
       <GreetingBox>
         <GreetingText>코인관리<br></br>COINSS에서 쉽고 간편하게</GreetingText>
-        <Link href="#">
+        <Link href='/login'>
           <JoinButton>JOIN</JoinButton>
         </Link>
         <GreetingImage src="/image/greeting_image.png"></GreetingImage>
