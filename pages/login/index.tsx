@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { Formik, Field, Form, FormikHelpers, ErrorMessage } from 'formik';
+import { InputField } from '../../components/fields/InputField';
+import * as Yup from 'yup';
+import { setToken } from '../../api/TokenManager';
+import { useRouter } from 'next/router';
 
 function Login() {
+  const router = useRouter();
   return (
     <Container>
       <LoginWrapper>
@@ -9,20 +16,77 @@ function Login() {
           <LoginTitle>
             Login <Logo src='/image/13-1-1.png' alt='logo' />
           </LoginTitle>
-          <InputBox>
-            <InputLabel>Username</InputLabel>
-            <InputValue type='text' placeholder='Type your Username' />
-            <InputUnder></InputUnder>
-          </InputBox>
-          <InputBox>
-            <InputLabel>Password</InputLabel>
-            <InputValue2 type='password' placeholder='Type your Password' />
-            <InputUnder></InputUnder>
-          </InputBox>
-          <LoginButton type='button'>LOGIN</LoginButton>
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            validationSchema={Yup.object().shape({
+              email: Yup.string()
+                .email('Email is invalid')
+                .required('Email is required'),
+              password: Yup.string()
+                .min(1, 'Password must be at least 1 characters')
+                .required('Password is required'),
+            })}
+            onSubmit={async (values) => {
+              try {
+                const response = await axios.post(
+                  global.domain + '/api/v1/user/signin',
+                  values
+                );
+                const token = response.data;
+                if (token) {
+                  setToken(token, token);
+                  alert('로그인 성공');
+                  router.push('/');
+                } else {
+                  alert('이메일 또는 비밀번호를 확인해주세요.');
+                }
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+          >
+            {({ errors, status, touched }) => (
+              <Form>
+                <Field
+                  id='email'
+                  name='email'
+                  type='email'
+                  label='Email Address'
+                  placeholder='email'
+                  className={
+                    'form-control' +
+                    (errors.email && touched.email ? ' is-invalid' : '')
+                  }
+                  component={InputField}
+                />
+                <ErrorMessage
+                  name='email'
+                  component='div'
+                  className='invalid-feedback'
+                />
+                <Field
+                  id='password'
+                  name='password'
+                  label='Password'
+                  placeholder='password'
+                  type='password'
+                  component={InputField}
+                />
+                <ErrorMessage
+                  name='password'
+                  component='div'
+                  className='invalid-feedback'
+                />
+                <LoginButton type='submit'>LOGIN</LoginButton>
+              </Form>
+            )}
+          </Formik>
         </LoginForm>
         <LinkContainer>
-          <GoTo href='#'>Create new account</GoTo>
+          <GoTo href='/register'>Create new account</GoTo>
           <GoTo href='#'>Forgot password</GoTo>
         </LinkContainer>
       </LoginWrapper>
@@ -33,10 +97,11 @@ function Login() {
 export default Login;
 
 const Container = styled.div`
-  background-image: linear-gradient(to top, #5227ff, #7409fc);
+  /* background-image: linear-gradient(to top, #5227ff, #7409fc); */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 10%;
   min-height: 100vh;
   width: 100%;
 `;
@@ -57,7 +122,7 @@ const LoginWrapper = styled.div`
   padding: 65px 55px 55px 55px;
 `;
 
-const LoginForm = styled.form``;
+const LoginForm = styled.div``;
 
 const LoginTitle = styled.span`
   display: flex;
@@ -84,7 +149,7 @@ const InputLabel = styled.span`
 `;
 
 const InputValue = styled.input`
-  background-image: url('/image/perm_identity_black_24dp.svg');
+  background-image: url('/image/mail_outline_black_24dp.svg');
   background-repeat: no-repeat;
   background-position: 10px;
   font-family: Roboto;

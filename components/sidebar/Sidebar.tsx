@@ -12,8 +12,8 @@ function Sidebar() {
         <Logo src='/image/13-1-1.png' alt='logo' />
       </Link>
       <Categories>
-        <Content isActive={router.pathname === '/main'}>
-          <GoTo href='/main' isActive={router.pathname === '/main'}>
+        <Content isActive={router.pathname === '/'}>
+          <GoTo href='/' isActive={router.pathname === '/'}>
             HOME
           </GoTo>
         </Content>

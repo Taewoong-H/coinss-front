@@ -1,12 +1,14 @@
-// import App from "next/app";
-import type { AppProps /*, AppContext */ } from 'next/app';
+import type { AppContext, AppProps /*, AppContext */ } from 'next/app';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import '../styles/globals.css';
 import Sidebar from '../components/sidebar/Sidebar';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
-import Login from './login';
+import '../domain';
+import cookies from 'next-cookies';
+import { setToken } from '../api/TokenManager';
+import App from 'next/app';
 
 const Container = styled.div`
   display: flex;
@@ -16,22 +18,31 @@ const Container = styled.div`
 
 const PageWrapper = styled.div``;
 
+App.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await App.getInitialProps(appContext);
+
+  const { ctx } = appContext;
+  const allCookies = cookies(ctx);
+  const accessTokenByCookie = allCookies['accessToken'];
+  if (accessTokenByCookie !== undefined) {
+    const refreshTokenByCookie = allCookies['refreshToken'] || '';
+    setToken(accessTokenByCookie, refreshTokenByCookie);
+  }
+
+  return { ...appProps };
+};
+
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
   return (
     <Container>
-      {router.pathname === '/login' ? (
-        <Login />
-      ) : (
-        <>
-          <Sidebar />
-          <PageWrapper>
-            <Navbar />
-            <Component {...pageProps} />
-            <Footer />
-          </PageWrapper>
-        </>
-      )}
+      <>
+        <Sidebar />
+        <PageWrapper>
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </PageWrapper>
+      </>
     </Container>
   );
 }
