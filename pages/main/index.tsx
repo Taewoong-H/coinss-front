@@ -6,14 +6,16 @@ import { MainPopular } from '../../components/main/MainPopular';
 import { MainRecentSearch } from '../../components/main/MainRecentSearch';
 
 import { GetStaticProps } from 'next';
-import { getMarkets, MarketType } from '../../api';
+import { getMarkets, MarketType, FavoriteType, getFavorites } from '../../api';
+import cookie from 'react-cookies'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 
 interface MainProps {
   markets: MarketType[];
 }
 
-export default function Main({ markets }: MainProps) {
+export default function Main({ markets }) {
   const favorite = {
     'list': [{
       ID: 1,
@@ -131,6 +133,16 @@ export default function Main({ markets }: MainProps) {
       rate: '33.3%'
     }]
   };
+  const fetchFavorites = async() => {
+    const accessToken = cookie.load('accessToken')
+    // const response = await axios.get(`/api/v1/coin/favorites`, {headers: {'token': accessToken}})
+    const response = await getFavorites(accessToken)
+    console.log(response)
+  }
+
+  useEffect(() => {
+    fetchFavorites()
+  }, [])
 
   return (
     <MainSection>
@@ -157,12 +169,12 @@ export const getStaticProps: GetStaticProps = async () => {
       notFound: true,
     };
   }
-
+  
   return {
     props: {
-      markets,
-    },
-  };
+      markets
+    }
+  }
 };
 
 const MainSection = styled.div`
