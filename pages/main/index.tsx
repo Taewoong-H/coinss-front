@@ -5,150 +5,125 @@ import { MainTopTen } from '../../components/main/MainTopTen';
 import { MainPopular } from '../../components/main/MainPopular';
 import { MainRecentSearch } from '../../components/main/MainRecentSearch';
 
-import { GetStaticProps } from 'next';
-import { getMarkets, MarketType, FavoriteType, getFavorites } from '../../api';
-import cookie from 'react-cookies'
-import React, { useState, useEffect } from 'react'
+import { GetStaticProps, GetServerSideProps } from 'next';
+import { FavoriteType } from '../../api';
+import React from 'react';
 import styled from 'styled-components';
 
-interface MainProps {
-  markets: MarketType[];
+interface FavoriteProps {
+  favorites: FavoriteType;
 }
 
-export default function Main({ markets }) {
-  const favorite = {
-    'list': [{
-      ID: 1,
-      name: 'Bitcoin',
-      price: 1234567,
-      rate: '10.83%',
-    },
-    {
-      ID: 2,
-      name: 'Bitcoin',
-      price: 1234567,
-      rate: '10.83%',
-    },
-    {
-      ID: 3,
-      name: 'Bitcoin',
-      price: 1234567,
-      rate: '10.83%',
-    }]
-  }
+export default function Main({ favorites }: FavoriteProps) {
   const highestTopTen = {
-    'title': '상한가',
-    'list': [{
-      ID: 1,
-      name: 'Bitcoin',
-      price: 1234567
-    },
-    {
-      ID: 2,
-      name: 'Etherium',
-      price: 1234567
-    },
-    {
-      ID: 3,
-      name: 'Etherium2',
-      price: 1234567
-    },
-    {
-      ID: 4,
-      name: 'Etherium2',
-      price: 1234567
-    },
-    {
-      ID: 5,
-      name: 'Etherium2',
-      price: 1234567
-    }]
+    title: '상한가',
+    list: [
+      {
+        ID: 1,
+        name: 'Bitcoin',
+        price: 1234567,
+      },
+      {
+        ID: 2,
+        name: 'Etherium',
+        price: 1234567,
+      },
+      {
+        ID: 3,
+        name: 'Etherium2',
+        price: 1234567,
+      },
+      {
+        ID: 4,
+        name: 'Etherium2',
+        price: 1234567,
+      },
+      {
+        ID: 5,
+        name: 'Etherium2',
+        price: 1234567,
+      },
+    ],
   };
 
   const lowestTopTen = {
-    'title': '하한가',
-    'list': [{
-      ID: 1,
-      name: 'Bitcoin',
-      price: 1234567
-    },
-    {
-      ID: 2,
-      name: 'Etherium',
-      price: 1234567
-    },
-    {
-      ID: 3,
-      name: 'Etherium2',
-      price: 1234567
-    },
-    {
-      ID: 4,
-      name: 'Etherium2',
-      price: 1234567
-    },
-    {
-      ID: 5,
-      name: 'Etherium2',
-      price: 1234567
-    }]
+    title: '하한가',
+    list: [
+      {
+        ID: 1,
+        name: 'Bitcoin',
+        price: 1234567,
+      },
+      {
+        ID: 2,
+        name: 'Etherium',
+        price: 1234567,
+      },
+      {
+        ID: 3,
+        name: 'Etherium2',
+        price: 1234567,
+      },
+      {
+        ID: 4,
+        name: 'Etherium2',
+        price: 1234567,
+      },
+      {
+        ID: 5,
+        name: 'Etherium2',
+        price: 1234567,
+      },
+    ],
   };
 
   const recentSearch = {
-    'title': '최근 본 종목',
-    'list': [{
-      ID: 1,
-      name: 'Bitcoin',
-      price: 1234567,
-      rate: '33.3%'
-    },
-    {
-      ID: 2,
-      name: 'Etherium',
-      price: 1234567,
-      rate: '33.3%'
-    },
-    {
-      ID: 3,
-      name: 'Etherium2',
-      price: 1234567,
-      rate: '33.3%'
-    },
-    {
-      ID: 4,
-      name: 'Etherium2',
-      price: 1234567,
-      rate: '33.3%'
-    },
-    {
-      ID: 5,
-      name: 'Etherium2',
-      price: 1234567,
-      rate: '33.3%'
-    },
-    {
-      ID: 6,
-      name: 'Etherium2',
-      price: 1234567,
-      rate: '33.3%'
-    }]
+    title: '최근 본 종목',
+    list: [
+      {
+        ID: 1,
+        name: 'Bitcoin',
+        price: 1234567,
+        rate: '33.3%',
+      },
+      {
+        ID: 2,
+        name: 'Etherium',
+        price: 1234567,
+        rate: '33.3%',
+      },
+      {
+        ID: 3,
+        name: 'Etherium2',
+        price: 1234567,
+        rate: '33.3%',
+      },
+      {
+        ID: 4,
+        name: 'Etherium2',
+        price: 1234567,
+        rate: '33.3%',
+      },
+      {
+        ID: 5,
+        name: 'Etherium2',
+        price: 1234567,
+        rate: '33.3%',
+      },
+      {
+        ID: 6,
+        name: 'Etherium2',
+        price: 1234567,
+        rate: '33.3%',
+      },
+    ],
   };
-  const fetchFavorites = async() => {
-    const accessToken = cookie.load('accessToken')
-    // const response = await axios.get(`/api/v1/coin/favorites`, {headers: {'token': accessToken}})
-    const response = await getFavorites(accessToken)
-    console.log(response)
-  }
-
-  useEffect(() => {
-    fetchFavorites()
-  }, [])
 
   return (
     <MainSection>
       <MainGreeting />
       <Section1>
-        <MainFavorites favorite={favorite} />
+        <MainFavorites favorite={favorites} />
         <MainNews />
       </Section1>
       <Section2>
@@ -161,26 +136,10 @@ export default function Main({ markets }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { markets } = await getMarkets();
-
-  if (!markets) {
-    return {
-      notFound: true,
-    };
-  }
-  
-  return {
-    props: {
-      markets
-    }
-  }
-};
-
 const MainSection = styled.div`
   width: 1280px;
   margin-left: 10px;
-`
+`;
 
 const Section1 = styled.section`
   position: relative;
@@ -189,7 +148,7 @@ const Section1 = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-`
+`;
 
 const Section2 = styled.section`
   position: relative;
@@ -198,4 +157,4 @@ const Section2 = styled.section`
   justify-content: space-evenly;
   align-items: center;
   overflow: hidden;
-`
+`;

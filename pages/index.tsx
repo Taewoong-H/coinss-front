@@ -1,33 +1,42 @@
-import React from 'react'
-import Main from './main/index'
-import { GetStaticProps } from 'next'
+import React from 'react';
+import Main from './main/index';
+import { GetStaticProps, GetServerSideProps } from 'next';
 
-import { getMarkets, MarketType } from '../api';
+import { getFavorites, FavoriteType } from '../api';
 
-interface HomeProps {
-  markets: MarketType[];
+interface FavoriteProps {
+  favorites: FavoriteType;
 }
 
-export default function Home({ markets }:HomeProps) {
+export default function Home({ favorites }: FavoriteProps) {
   return (
     <>
-      <Main markets={markets}/>
+      <Main favorites={favorites} />
     </>
-  )
+  );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { markets } = await getMarkets();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let favorites = '';
+  const cookieString = context.req ? context.req.headers.cookie : '';
 
-  if (!markets) {
-    return {
-      notFound: true,
-    }
+  if (cookieString) {
+    const splitCookie = cookieString.split(';');
+    const splitAccessToken = splitCookie[0].split('=')[1];
+
+    const response = await getFavorites(splitAccessToken);
+    favorites = response;
   }
+
+  // if (!favorites) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
   return {
     props: {
-      markets
-    }
+      favorites,
+    },
   };
-}
+};
